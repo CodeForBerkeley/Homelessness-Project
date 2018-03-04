@@ -1,6 +1,5 @@
 Note: All these instructions are for Mac machines. If anyone has a Windows machine and this doesn't work, feel free to message me and I'll help you figure it out. :)
 
-0. Clone the repo (https://github.com/GreenInfo-Network/DDH_HomelessServices)
 1. Open a terminal
 2. Optional: Only if you aren't sure if you have Homebrew installed already
 	- In your terminal, run the following: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
