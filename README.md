@@ -24,5 +24,5 @@ Note: All these instructions are for Mac machines. If anyone has a Windows machi
 	- Whenever you open the app, make sure to close it completely from your terminal with ctrl-c. If you don't fully shut down the app and try to reopen it, you may get an EADDRINUSE 127.0.0.1:80 error when trying to execute 'npm run serve' again. In order to fix this issue, do the following:
 		1. Run: lsof -i tcp:80
 		2. Find the number listed under 'PID'
-		3. Run: sudo kill -9 ~INSERT FOUND PID HERE~
+		3. Run: sudo kill -9 INSERT FOUND PID HERE
 		4. Try (sudo) npm run serve again
