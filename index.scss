@@ -1,0 +1,418 @@
+/*
+ * DEFINITIONS
+ */
+
+$link-blue: blue;
+
+
+/*
+ * GLOBALS AND UTILITY CLASSES AND BOOTSTRAP OVERRIDES
+ */
+
+html,body {
+    font-family: 'Source Sans Pro', sans-serif !important;
+}
+
+body {
+}
+
+.center { text-align:center; }
+.right { text-align:right; }
+.left { text-align:left; }
+.bold { font-weight:bold; }
+.nowrap { white-space:nowrap; }
+
+label {
+    font-weight: normal;
+}
+
+/*
+ * GENERAL PAGE WIDTH AND NAVBAR AND TITLES
+ */
+
+div.container-fluid {
+    max-width: 768px; /* this is mobile-first, but looks goofy at desktop widths */
+
+    h3:first-child { /* first title on a page gets too much top margin */
+        margin-top: 0;
+    }
+}
+
+.navbar a.logoimage {
+    float: right;
+    margin-right: 5px;
+    margin-top: 8px;
+
+    img {
+        height: 32px;
+    }
+}
+
+div.contactus {
+    font-size: 15px;
+
+    a {
+        text-decoration: underline !important;
+        color: $link-blue !important;
+    }
+}
+
+/*
+ * CALENDAR DATE PICKER THING
+ */
+
+:focus {
+    outline: none !important;
+}
+
+div.uib-daypicker, div.uib-monthpicker {
+    table {
+        width: 100%;
+    }
+    td {
+    }
+    button {
+        border-radius: 0;
+        border: 1px solid silver;
+        background-color: white;
+        background-image: none;
+    }
+}
+
+
+
+/*
+ * COMPONENTS AND PANELS
+ */
+
+nav.navbar {
+}
+
+#searchform {
+    label input {
+        vertical-align: top;
+    }
+}
+
+#noresults {
+}
+
+#results {
+    #results-navbar {
+        margin-bottom: 10px;
+
+        a {
+            text-decoration: none;
+            color: black !important;
+            font-size: 15px;
+
+            padding: 5px;
+            border-radius:5px;
+        }
+        a.active {
+            font-weight: bold;
+            background-color: silver;
+        }
+        a.backbutton {
+            font-weight: bold;
+        }
+    }
+
+    #resultslist {
+        .contactus {
+            margin-bottom: 10px;
+        }
+
+        .resultslist-sorting {
+            text-align: right;
+
+            margin-bottom: 10px;
+
+           a {
+                text-decoration: none !important;
+           }
+            a.active {
+                font-weight: bold;
+            }
+        }
+
+        ul {
+            list-style-type: none;
+            margin-left: -2em;
+
+            li {
+                font-size: 18px;
+                margin-bottom: 1em;
+
+                div.indent {
+                    padding-left: 20px;
+                }
+
+                div.times {
+                }
+                div.name {
+                }
+                div.address {
+                }
+                div.details {
+                    font-size: 15px;
+                    margin-top: 5px;
+                }
+                div.distance {
+                    float: right;
+                    border-radius: 5px;
+                    padding: 3px;
+
+                    font-size: 11px;
+                    background-color: #FAFAFA;
+                    border: 1px solid silver;
+
+                    a { /* it's only a link to make it easier to tap; we don't want it to look like one */
+                        color: black !important;
+                        text-decoration: none !important;
+                    }
+                }
+            }
+        }
+
+        p.fewresults {
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 0.25in;
+        }
+    }
+
+    #resultsmap {
+        height: calc(100vh - 103px);
+    }
+}
+
+.searchterms {
+    font-size: 13px;
+    margin-bottom: 0.1in;
+    line-height: 2;
+
+    span {
+        display: inline-block;
+        white-space: nowrap;
+
+        background-color: silver;
+        border-radius: 4px;
+        padding: 0 4px 0 4px;
+        line-height: 1.5;
+
+        margin-left: 1em;
+
+        cursor: pointer;
+    }
+    span:first-child {
+        margin-left: 0; /* don't extra-space the first one, as there's already a space */
+    }
+    i {
+        font-size: 12px;
+    }
+}
+
+.serviceterms {
+    font-size: 13px;
+    margin-bottom: 0.1in;
+    line-height: 2;
+
+    span {
+        display: inline-block;
+        white-space: nowrap;
+
+        // Change background-color to something better
+        background-color: lightblue;
+        border-radius: 4px;
+        padding: 0 4px 0 4px;
+        line-height: 1.5;
+
+        margin-left: 1em;
+    }
+    span:first-child {
+        margin-left: 0; /* don't extra-space the first one, as there's already a space */
+    }
+    i {
+        font-size: 12px;
+    }
+}
+
+.resultborder {
+    border-bottom: 1px solid lightblue;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#footer {
+    margin-top: 0.25in;
+
+    border-top: 2px solid silver;
+}
+
+#modal_datepicker {
+    .modal-body input {
+        width: 100%;
+        font-size: 20px;
+    }
+}
+
+#ui-datepicker-div {
+    @media screen and (max-width: 425px) {
+        position: fixed;
+        top: 10px !important;
+        left: 10px !important;
+        width: calc(100% - 20px) !important;
+
+        table {
+            font-size: 20px !important;
+        }
+    }
+}
+
+#busy {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 10000000;
+    background-color: white;
+    opacity: 0.75;
+
+    img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -64px;
+        margin-left: -64px;
+    }
+    h1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 100;
+
+        margin-top: -.5em;
+        margin-left: -2em;
+
+        font-weight: bold;
+        text-align: center;
+        font-size: 50px;
+        color: black;
+    }
+}
+
+
+/*
+ * CUSTOM MAP CONTROLS
+ */
+
+div.map-control { /* base class for map controls */
+    background-color: white;
+    color: #666;
+
+    border-radius: 3px;
+
+    font-size: 22px;
+
+    margin: 0px 10px 0px 10px;
+
+    box-shadow: 1px 1px 5px #888888;
+}
+
+div.map-control i, div.map-control a {
+    color: #666;
+    text-decoration: none !important;
+    display: block;
+}
+
+div.map-control .active {
+    background-color: #333;
+    border-color: #333;
+    color: white;
+}
+div.map-control .active i, div.map-control .active a {
+    color: white;
+}
+
+div.map-control-button {
+    width: 28px;
+    height: 28px;
+    text-align: center;
+
+    i {
+        line-height: 28px;
+        font-size: 22px;
+    }
+
+    img { /* is using an image instead of glyphicon, needs some hacks */
+        width: 38px !important;
+        display: inline;
+        margin-left: -5px;
+    }
+}
+
+div.map-control-text {
+}
+
+div.map-control-text-details {
+    /* full-width panel anchored to bottom-left of map, implemented as a control */
+    width: 100%;
+    margin: 0 0 -25px 0;
+    z-index: 10000000 !important;
+
+    border-top: 2px solid silver;
+
+    padding: 10px 10px 10px 10px;
+
+    a {
+        display: inline; /* normally a link inside a control should be a block, being a single button */
+
+        color: $link-blue;
+        text-decoration: underline !important;
+    }
+    > a { /* this link would be the X to close the panel */
+        float: right;
+        font-size: 15px;
+        cursor: pointer;
+
+        color: black !important;
+        text-decoration: underline !important;
+    }
+
+    div {
+        font-size: 13px;
+        line-height: 20px;
+    }
+    div.times {
+        margin-left: 0;
+        margin-bottom: 3px;
+        img {
+            height: 20px;
+            vertical-align: bottom;
+        }
+    }
+    div.name {
+        margin-left: 23px;
+    }
+    div.address {
+        margin-left: 23px;
+    }
+    div.details {
+        margin-left: 23px;
+        font-size: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    div.services {
+        margin-left: 23px;
+        font-size: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    div.contactus {
+        margin-top: 2px;
+    }
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>East Bay Homeless Services</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <!-- Angular and Angular Bootstrap -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-sanitize.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/checklist-model/0.11.0/checklist-model.min.js"></script>
+
+    <!-- jQuery and Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- Google Maps API -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAL9z5bBfPe2FfwUmUik-xX1_unw-7PwYA"></script>
+
+    <!-- local config -->
+    <link href="index.css?[hash]" rel="stylesheet" />
+    <script src="index.js?[hash]"></script>
+</head>
+<body ng-app="app" ng-controller="PageController as app">
+
+    <!-- header navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <a class="logoimage" target="_blank" href="http://www.greeninfo.org/"><img src="images/greeninfo.png" /></a>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">East Bay Homeless Services</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- search form -->
+    <div ng-show="! app.search.done" class="container-fluid" id="searchform">
+        <h3>What Do You Need?</h3>
+        <span ng-repeat="option in app.services_list">
+            <label><input type="checkbox" checklist-model="app.search.services" checklist-value="option" /> {{ option }}</label><br/>
+        </span>
+
+        <h3>When?</h3>
+        <button ng-class="{ 'btn': true, 'btn-block':true, 'btn-primary': true, 'btn-success': app.search.date.YMD() == app.today.YMD() }" ng-click="app.pickDate('today');">Today</button>
+        <button ng-class="{ 'btn': true, 'btn-block':true, 'btn-primary': true, 'btn-success': app.search.date.YMD() == app.tomorrow.YMD() }" ng-click="app.pickDate('tomorrow');">Tomorrow</button>
+        <button ng-class="{ 'btn': true, 'btn-block':true, 'btn-primary': true, 'btn-success': app.search.date.YMD() >  app.tomorrow.YMD() }" ng-click="app.pickDate('clear'); app.pickDate('date');">Pick a Day</button>
+
+        <br/>
+        <button class="btn btn-block btn-success" ng-click="app.performSearch();"><i class="glyphicon glyphicon-search"></i> Search</button>
+    </div>
+
+    <!-- search had no results -->
+    <div ng-show="app.search.done && ! app.search.results.length" class="container-fluid" id="noresults">
+        <h3>Nothing Found</h3>
+
+        <div class="searchterms">
+            Searching for
+            <span ng-repeat="searchterm in app.search.services" ng-click="app.removeSearchService(searchterm)">
+            {{ searchterm }} <i class="glyphicon glyphicon-remove"></i>
+            </span>
+        </div>
+
+        <p>No service providers were found matching all of your needs.</p>
+        <p>Try selecting fewer services. Few providers provide all of the services listed.</p>
+        <p>Try selecting a different day. Many providers are only open Monday through Friday.</p>
+        <p><button class="btn btn-block btn-primary" ng-click="app.searchBack();"><i class="glyphicon glyphicon-chevron-left"></i> Search Again</button></p>
+    </div>
+
+    <!-- results listing / results map -->
+    <div ng-show="app.search.done && app.search.results.length" id="results">
+        <div class="container-fluid" id="results-navbar">
+            <div class="row">
+                <div class="col-xs-6">
+                    <a href="javascript:void(0);" ng-click="app.searchBack();" class="backbutton"><i class="glyphicon glyphicon-chevron-left"></i> Search Again</a>
+                </div>
+                <div class="col-xs-6 right">
+                    <a href="javascript:void(0);" ng-click="app.showmap = true;" ng-class="{ 'active': app.showmap }">Map</a>
+                    &nbsp;
+                    <a href="javascript:void(0);" ng-click="app.showmap = false;" ng-class="{ 'active': ! app.showmap }">List</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- results map; see Google Maps setup -->
+        <!-- the control DIVs will be turned into true GMaps controls in code, and removed from this section of the DOM -->
+        <div ng-show="app.showmap" class="container-fluid" id="resultsmap">
+        </div>
+        <div id="GeolocationControl" class="map-control map-control-button map-control-button-geolocation" title="Show your location">
+            <a href="javascript:void(0);" ng-click="app.zoomMapToGeolocation();"><img src="images/youarehere.svg" /></a>
+        </div>
+        <div id="DetailsControl" class="map-control map-control-text map-control-text-details" ng-show="app.showmap && app.resultdetails">
+            <a href="javascript:void(0);" ng-click="app.resultdetails = null;"><i class="glyphicon glyphicon-remove"></i></a>
+
+            <div class="times" ng-show="app.resultdetails.StartTime && app.resultdetails.EndTime"><img src="images/location.svg" /> {{ app.resultdetails.StartTime }} - {{ app.resultdetails.EndTime }}</div>
+            <div class="times" ng-show="app.resultdetails.StartTime && ! app.resultdetails.EndTime"><img src="images/location.svg" /> Starting at {{ app.resultdetails.StartTime }}</div>
+            <div class="times" ng-show="! app.resultdetails.StartTime && app.resultdetails.EndTime"><img src="images/location.svg" /> Until {{ app.resultdetails.EndTime }}</div>
+
+            <div class="name" ng-show="app.resultdetails.AgencyName">{{ app.resultdetails.AgencyName }}</div>
+            <div class="address" ng-if="app.resultdetails.Address" ng-bind-html="app.makeDirectionsLink(app.resultdetails.Address, app.resultdetails.LatLng)" title="Get directions"></div>
+
+            <div class="details" ng-show="app.resultdetails.Details && app.$window.innerHeight >= 550">{{ app.resultdetails.Details }}</div>
+
+            <div class="services" ng-show="app.resultdetails.Services.length > 0 && app.$window.innerHeight >= 550">Services: {{ app.resultdetails.Services.join(", ") }}</div>
+
+            <div class="contactus">See an error? <a target="_blank" ng-href="{{ app.email_contact }}">Email us!</a></div>
+        </div>
+
+        <!-- results listing -->
+        <div ng-show="! app.showmap" class="container-fluid" id="resultslist">
+            <div class="contactus">
+                See an error? <a target="_blank" ng-href="{{ app.email_contact }}">Email us!</a>
+            </div>
+
+            <div class="searchterms">
+                Showing results for
+                <span ng-repeat="searchterm in app.search.services" ng-click="app.removeSearchService(searchterm)">
+                {{ searchterm }} <i class="glyphicon glyphicon-remove"></i>
+                </span>
+            </div>
+
+            <div class="resultslist-sorting">
+                <a href="javascript:void(0);" ng-click="app.search.sortby = 'time';" ng-class="{ active: app.search.sortby=='time'}">Sort by Time</a>
+                &bull;
+                <a href="javascript:void(0);" ng-click="app.search.sortby = 'distance';" ng-class="{ active: app.search.sortby=='distance'}">Sort by Distance</a>
+            </div>
+
+            <ul>
+                <li ng-repeat="result in app.search.results">
+                    <div class="distance" ng-show="result.DistanceMiles"><a href="javascript:void(0);" ng-click="app.zoomMapToLatLng(result.LatLng, true); app.resultdetails = result;">{{ result.DistanceMiles.toFixed(1) }} miles<br/>from you</a></div>
+
+                    <div class="times" ng-show="result.StartTime && result.EndTime">{{ result.StartTime }} - {{ result.EndTime }}</div>
+                    <div class="times" ng-show="result.StartTime && ! result.EndTime">Starting at {{ result.StartTime }}</div>
+                    <div class="times" ng-show="! result.StartTime && result.EndTime">Until {{ result.EndTime }}</div>
+                    <!-- Test to see where to put services offered -->
+                    <!-- TODO: Make services offered its own class in css/scss -->
+                    <div class="serviceterms">
+                        <span ng-repeat="service in result.Services">
+                            {{ service }}
+                        </span>
+                    </div>
+                    <div class="name indent">{{ result.AgencyName }}</div>
+                    <div class="address indent">{{ result.Address }}</div>
+
+                    <div class="details indent" ng-show="result.Details">{{ result.Details }}</div>
+                    <div class="resultborder"></div>
+                </li>
+            </ul>
+
+            <p class="fewresults">Not getting many results? Try searching for fewer services at once. The form tries to find places that offer ALL the services you selected. Searching for fewer services often shows more results.</p>
+        </div>
+    </div>
+
+    <!-- busy spinner -->
+    <div ng-show="app.busy" id="busy">
+        <img src="images/spinner.gif" />
+    </div>
+
+    <!-- footer for credits -->
+    <div class="container-fluid" id="footer" ng-hide="app.showmap">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                Data provided by <a target="_blank" href="https://dorothydayhouseberkeley.org">Dorothy Day House, Berkeley</a>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                Application by <a href="_blank" target="http://www.greeninfo.org/">GreenInfo Network</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- date picker modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal_datepicker">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Pick a Date</h4>
+                </div>
+                <div class="modal-body">
+                    <div uib-datepicker ng-model="app.search.date" datepicker-options="{ showWeeks: false, initDate: app.today, minDate: app.today }" ng-change="app.closeDatePicker();"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108260615-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-108260615-1');
+    </script>
+
+</body>
+</html>
