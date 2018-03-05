@@ -18,12 +18,9 @@ Use nvm:
 	
 	nvm use
 
-* If this doesn't work for some reason, try:
+If this doesn't work for some reason, try:
 
 	brew install nvm
-
-* Then, retry:
-
 	nvm use
 
 Install yarn:
@@ -38,7 +35,7 @@ Launch the app on localhost:
 
 	npm run serve
 
-* This might not work due to your machine's admin security protocols. If it doesn't, run:
+This might not work due to your machine's admin security protocols. If it doesn't, run:
 
 	sudo npm run serve
 
