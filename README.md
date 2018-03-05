@@ -50,4 +50,4 @@ Whenever you open the app, make sure to close it completely from your terminal w
 Find the number listed under 'PID'
 
 	sudo kill -9 INSERT FOUND PID HERE
-	(sudo) npm run serve again
+	sudo npm run serve
