@@ -2,45 +2,47 @@
 
 ## Dev Instructions
 
-1. Open a terminal
-2. Optional: Only if you aren't sure if you have Homebrew installed already
+Open a terminal
+
+Optional: Only if you aren't sure if you have Homebrew installed already
 
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-	- May ask for a password. This is your 'sudo', or root, password. Usually this is just the password you use to login to your computer, unless you set up a different root password in the past.
-3. Install node:
+May ask for a password. This is your 'sudo', or root, password. Usually this is just the password you use to login to your computer, unless you set up a different root password in the past.
+
+Install node:
 	
 	brew install node
 
-4. Use nvm:
+Use nvm:
 	
 	nvm use
 
-	- If this doesn't work for some reason, try:
+* If this doesn't work for some reason, try:
 
 	brew install nvm
 
-		- Then, retry:
+* Then, retry:
 
-		nvm use
+	nvm use
 
-5. Install yarn:
+Install yarn:
 
 	brew install yarn
 
-6. Install package dependencies:
+Install package dependencies:
 
 	yarn install
 
-7. Launch the app on localhost:
+Launch the app on localhost:
 
 	npm run serve
 
-		* This might not work due to your machine's admin security protocols. If it doesn't, run:
+* This might not work due to your machine's admin security protocols. If it doesn't, run:
 
-		sudo npm run serve
+	sudo npm run serve
 
-		* Note: On my machine, this opens in Safari even though I have my default browser set to Chrome. If you want to be able to use Chrome's DevTools by viewing the app in Chrome, just open up a Chrome window and navigate via address bar to localhost:80
+* Note: On my machine, this opens in Safari even though I have my default browser set to Chrome. If you want to be able to use Chrome's DevTools by viewing the app in Chrome, just open up a Chrome window and navigate via address bar to localhost:80
 
 ## Troubleshooting
 
