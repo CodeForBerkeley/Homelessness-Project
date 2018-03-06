@@ -278,8 +278,12 @@ class PageController {
                 this.search.results = response.data.records.map(item => {
                     // extract the fields, then do some data corrections
                     // many of the fields come out as arrays of strings, instead of single values
-                    item.fields.Address     = item.fields.Address[0];
-                    item.fields.AgencyName  = item.fields.AgencyName[0];
+                    if (item.fields.Address) {
+                        item.fields.Address = item.fields.Address[0];
+                    }
+                    if (item.fields.AgencyName) {
+                        item.fields.AgencyName  = item.fields.AgencyName[0];
+                    }
                     item.fields.LatLng      = item.fields.lat && item.fields.lng ? [ parseFloat(item.fields.lat[0]), parseFloat(item.fields.lng[0]) ] : null; // can be empty!
                     item.fields.Services = item.fields['Services Offered']; // rename just to be less nuisance
 
