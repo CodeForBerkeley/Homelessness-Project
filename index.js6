@@ -253,7 +253,6 @@ class PageController {
             formula.push(`FIND("${wanted}", {Services Offered}) > 0`);
         });
         formula = `AND(${day}, OR(${formula.join(", ")}))`;
-        console.log(formula);
         // compose the query and send it off
         var params = {
             filterByFormula: formula,

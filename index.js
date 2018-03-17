@@ -339,14 +339,13 @@ var PageController = function () {
             // * there is no IN operator for arrays, just substring matching; see the note in SERVICES_OFFERED about overlapping substrings
             var formula = [];
 
-            var weekday = WEEKDAYS_LOOKUP[this.search.date.getDay()];
-            formula.push('FIND("' + weekday + '", Day) > 0');
+            const weekday = WEEKDAYS_LOOKUP[this.search.date.getDay()];
+            let day = `FIND("${weekday}", Day) > 0`;
 
             this.search.services.forEach(function (wanted) {
-                formula.push('FIND("' + wanted + '", {Services Offered}) > 0');
+                formula.push(`FIND("${wanted}", {Services Offered}) > 0`);
             });
-
-            formula = 'OR(' + formula.join(", ") + ')';
+            formula = `AND(${day}, OR(${formula.join(", ")}))`;
 
             // compose the query and send it off
             var params = {
