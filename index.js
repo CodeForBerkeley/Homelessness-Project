@@ -340,12 +340,12 @@ var PageController = function () {
             var formula = [];
 
             const weekday = WEEKDAYS_LOOKUP[this.search.date.getDay()];
-            let day = `FIND("${weekday}", Day) > 0`;
+            let day = 'FIND("' +  weekday + '", Day) > 0';
 
             this.search.services.forEach(function (wanted) {
-                formula.push(`FIND("${wanted}", {Services Offered}) > 0`);
+                formula.push('FIND("' + wanted + '", {Services Offered}) > 0');
             });
-            formula = `AND(${day}, OR(${formula.join(", ")}))`;
+            formula = 'AND(' + day + ', OR(' + formula.join(", ") + '))';
 
             // compose the query and send it off
             var params = {
