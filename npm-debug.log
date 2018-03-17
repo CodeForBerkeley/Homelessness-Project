@@ -1,6 +1,6 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/Users/Nico/.nvm/versions/node/v6.11.4/bin/node',
-1 verbose cli   '/Users/Nico/.nvm/versions/node/v6.11.4/bin/npm',
+1 verbose cli [ '/Users/sararush/.nvm/versions/node/v6.11.4/bin/node',
+1 verbose cli   '/Users/sararush/.nvm/versions/node/v6.11.4/bin/npm',
 1 verbose cli   'run',
 1 verbose cli   'serve' ]
 2 info using npm@3.10.10
@@ -10,25 +10,25 @@
 6 silly lifecycle ddh-homeless-services@1.0.0~preserve: no script for preserve, continuing
 7 info lifecycle ddh-homeless-services@1.0.0~serve: ddh-homeless-services@1.0.0
 8 verbose lifecycle ddh-homeless-services@1.0.0~serve: unsafe-perm in lifecycle true
-9 verbose lifecycle ddh-homeless-services@1.0.0~serve: PATH: /Users/Nico/.nvm/versions/node/v6.11.4/lib/node_modules/npm/bin/node-gyp-bin:/Users/Nico/cfb/homelessness_project/node_modules/.bin:/Users/Nico/anaconda3/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/Nico/.nvm/versions/node/v6.11.4/bin:/Library/Frameworks/Python.framework/Versions/3.4/bin:/Library/Frameworks/Python.framework/Versions/3.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin
-10 verbose lifecycle ddh-homeless-services@1.0.0~serve: CWD: /Users/Nico/cfb/homelessness_project
+9 verbose lifecycle ddh-homeless-services@1.0.0~serve: PATH: /Users/sararush/.nvm/versions/node/v6.11.4/lib/node_modules/npm/bin/node-gyp-bin:/Users/sararush/homelessness-proj/Homelessness-Project/node_modules/.bin:/Users/sararush/.nvm/versions/node/v6.11.4/bin:/Users/sararush/anaconda3/bin:/Library/Frameworks/Python.framework/Versions/3.5/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin
+10 verbose lifecycle ddh-homeless-services@1.0.0~serve: CWD: /Users/sararush/homelessness-proj/Homelessness-Project
 11 silly lifecycle ddh-homeless-services@1.0.0~serve: Args: [ '-c', 'webpack-dev-server --config webpack.config.js --open' ]
 12 silly lifecycle ddh-homeless-services@1.0.0~serve: Returned: code: 1  signal: null
 13 info lifecycle ddh-homeless-services@1.0.0~serve: Failed to exec serve script
 14 verbose stack Error: ddh-homeless-services@1.0.0 serve: `webpack-dev-server --config webpack.config.js --open`
 14 verbose stack Exit status 1
-14 verbose stack     at EventEmitter.<anonymous> (/Users/Nico/.nvm/versions/node/v6.11.4/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
+14 verbose stack     at EventEmitter.<anonymous> (/Users/sararush/.nvm/versions/node/v6.11.4/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at EventEmitter.emit (events.js:191:7)
-14 verbose stack     at ChildProcess.<anonymous> (/Users/Nico/.nvm/versions/node/v6.11.4/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at ChildProcess.<anonymous> (/Users/sararush/.nvm/versions/node/v6.11.4/lib/node_modules/npm/lib/utils/spawn.js:40:14)
 14 verbose stack     at emitTwo (events.js:106:13)
 14 verbose stack     at ChildProcess.emit (events.js:191:7)
 14 verbose stack     at maybeClose (internal/child_process.js:920:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:230:5)
 15 verbose pkgid ddh-homeless-services@1.0.0
-16 verbose cwd /Users/Nico/cfb/homelessness_project
-17 error Darwin 17.3.0
-18 error argv "/Users/Nico/.nvm/versions/node/v6.11.4/bin/node" "/Users/Nico/.nvm/versions/node/v6.11.4/bin/npm" "run" "serve"
+16 verbose cwd /Users/sararush/homelessness-proj/Homelessness-Project
+17 error Darwin 17.2.0
+18 error argv "/Users/sararush/.nvm/versions/node/v6.11.4/bin/node" "/Users/sararush/.nvm/versions/node/v6.11.4/bin/npm" "run" "serve"
 19 error node v6.11.4
 20 error npm  v3.10.10
 21 error code ELIFECYCLE
