@@ -210,7 +210,7 @@ var PageController = function () {
                 _this.geolocation = [parseFloat(position.coords.latitude), parseFloat(position.coords.longitude)];
             });
         }, function (error) {
-            console.warn('Geolocation: ' + err.message);
+            console.warn('Geolocation: ' + error.message);
         }, {
             enableHighAccuracy: true
         });

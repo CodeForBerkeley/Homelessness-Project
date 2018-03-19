@@ -134,7 +134,7 @@ class PageController {
                 });
             },
             (error) => {
-              console.warn(`Geolocation: ${err.message}`);
+              console.warn(`Geolocation: ${error.message}`);
             },
             {
                 enableHighAccuracy: true,
