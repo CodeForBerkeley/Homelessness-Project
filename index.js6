@@ -371,24 +371,24 @@ class PageController {
                 // sorting depends on their choice
                 switch (this.search.sortby) {
                     case 'distance':
-                        if (p.DistanceMiles === null) return 1; // no location = send to the end of the list
-                        if (q.DistanceMiles === null) return -1; // no location = send to the end of the list
+                        if (!p.DistanceMiles) return -1; // no location = send to the end of the list
+                        if (!q.DistanceMiles) return -1; // no location = send to the end of the list
                         if (p.DistanceMiles != q.DistanceMiles) {
                             return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
                         }
 
-                        if (p.StartTimeObject === null) return 1; // no start time = send to start of these tied locations
-                        if (q.StartTimeObject === null) return 1; // no start time = send to start of these tied locations
+                        if (!p.StartTimeObject) return 1; // no start time = send to start of these tied locations
+                        if (!q.StartTimeObject) return 1; // no start time = send to start of these tied locations
                         return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
                     case 'time':
-                        if (p.StartTimeObject === null) return 1; // no start time = send to start of list
-                        if (q.StartTimeObject === null) return 1; // no start time = send to start of list
+                        if (!p.StartTimeObject) return 1; // no start time = send to start of list
+                        if (!q.StartTimeObject) return 1; // no start time = send to start of list
                         if (p.StartTimeObject != q.StartTimeObject) {
                             return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
                         }
 
-                        if (p.DistanceMiles === null) return 1; // no location = send to the end of the list
-                        if (q.DistanceMiles === null) return -1; // no location = send to the end of the list
+                        if (!p.DistanceMiles) return -1; // no location = send to the end of the list
+                        if (!q.DistanceMiles) return -1; // no location = send to the end of the list
                         return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
                     default:
                         throw `updateGeolocationResultsList: unknown sorting: ${this.search.sortby}`;
