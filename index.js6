@@ -142,7 +142,6 @@ class PageController {
         );
 
         $scope.$watchCollection(() => this.geolocation, this.updateGeolocationResultsList(), true);
-        $scope.$watchCollection(() => this.search.sortby, this.updateGeolocationResultsList(), true);
         $scope.$watchCollection(() => this.geolocation, this.updateGeolocationMapmarker(), true);
 
         // start the map
@@ -324,6 +323,7 @@ class PageController {
 
                 // add distance decorators and sort by distance from me; note the wrapped nature here
                 this.updateGeolocationResultsList()();
+                this.updateSort();
 
                 // center the map on our own location
                 this.resultsmap.setCenter({ lat: this.geolocation[0], lng: this.geolocation[1] });
@@ -367,40 +367,42 @@ class PageController {
 
             // then sort the list so closest locations come first
             // in event of a tie (same location, listed multiple times for different service-times) sort by starting time
-            this.search.results.sort((p, q) => {
-                // sorting depends on their choice
-                switch (this.search.sortby) {
-                    case 'distance':
-                        if (!p.DistanceMiles) return -1; // no location = send to the end of the list
-                        if (!q.DistanceMiles) return -1; // no location = send to the end of the list
-                        if (p.DistanceMiles != q.DistanceMiles) {
-                            return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
-                        }
-
-                        if (!p.StartTimeObject) return 1; // no start time = send to start of these tied locations
-                        if (!q.StartTimeObject) return 1; // no start time = send to start of these tied locations
-                        if (p.StartTimeObject != q.StartTimeObject) {
-                            return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
-                        }
-                        return 0;
-                    case 'time':
-                        if (!p.StartTimeObject) return 1; // no start time = send to start of list
-                        if (!q.StartTimeObject) return 1; // no start time = send to start of list
-                        if (p.StartTimeObject != q.StartTimeObject) {
-                            return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
-                        }
-
-                        if (!p.DistanceMiles) return -1; // no location = send to the end of the list
-                        if (!q.DistanceMiles) return -1; // no location = send to the end of the list
-                        if (p.DistanceMiles != q.DistanceMiles) {
-                            return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
-                        }
-                        return 0;
-                    default:
-                        throw `updateGeolocationResultsList: unknown sorting: ${this.search.sortby}`;
-                }
-            });
         };
+    }
+
+    updateSort () {
+        this.search.results.sort((p, q) => {
+            // sorting depends on their choice
+            if (this.search.sortby == 'distance') {
+                if (!p.DistanceMiles) return -1; // no location = send to the end of the list
+                if (!q.DistanceMiles) return -1; // no location = send to the end of the list
+                if (p.DistanceMiles != q.DistanceMiles) {
+                    return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
+                }
+
+                if (!p.StartTimeObject) return 1; // no start time = send to start of these tied locations
+                if (!q.StartTimeObject) return 1; // no start time = send to start of these tied locations
+                if (p.StartTimeObject != q.StartTimeObject) {
+                    return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
+                }
+                return 0;
+            } else if (this.search.sortby == 'time') {
+                if (!p.StartTimeObject) return 1; // no start time = send to start of list
+                if (!q.StartTimeObject) return 1; // no start time = send to start of list
+                if (p.StartTimeObject != q.StartTimeObject) {
+                    return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
+                }
+
+                if (!p.DistanceMiles) return -1; // no location = send to the end of the list
+                if (!q.DistanceMiles) return -1; // no location = send to the end of the list
+                if (p.DistanceMiles != q.DistanceMiles) {
+                    return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
+                }
+                return 0;
+            } else {
+                throw `updateGeolocationResultsList: unknown sorting: ${this.search.sortby}`;
+            }
+        });
     }
 
     redrawLocationMarkers () {

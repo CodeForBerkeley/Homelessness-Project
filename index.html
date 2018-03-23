@@ -21,8 +21,8 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAL9z5bBfPe2FfwUmUik-xX1_unw-7PwYA"></script>
 
     <!-- local config -->
-    <link href="index.css?Thu Mar 22 2018 19:47:50 GMT-0700 (PDT)" rel="stylesheet" />
-    <script src="index.js?Thu Mar 22 2018 19:47:50 GMT-0700 (PDT)"></script>
+    <link href="index.css?Thu Mar 22 2018 20:02:38 GMT-0700 (PDT)" rel="stylesheet" />
+    <script src="index.js?Thu Mar 22 2018 20:02:38 GMT-0700 (PDT)"></script>
 </head>
 <body ng-app="app" ng-controller="PageController as app">
 
@@ -122,9 +122,9 @@
             </div>
 
             <div class="resultslist-sorting">
-                <a href="javascript:void(0);" ng-click="app.search.sortby = 'time';" ng-class="{ active: app.search.sortby=='time'}">Sort by Time</a>
+                <a href="javascript:void(0);" ng-click="app.search.sortby = 'time'; app.performSearch()" ng-class="{ active: app.search.sortby=='time'}">Sort by Time</a>
                 &bull;
-                <a href="javascript:void(0);" ng-click="app.search.sortby = 'distance';" ng-class="{ active: app.search.sortby=='distance'}">Sort by Distance</a>
+                <a href="javascript:void(0);" ng-click="app.search.sortby = 'distance'; app.performSearch()" ng-class="{ active: app.search.sortby=='distance'}">Sort by Distance</a>
             </div>
 
             <ul>

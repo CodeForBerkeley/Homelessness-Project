@@ -219,9 +219,6 @@ var PageController = function () {
             return _this.geolocation;
         }, this.updateGeolocationResultsList(), true);
         $scope.$watchCollection(function () {
-            return _this.search.sortby;
-        }, this.updateGeolocationResultsList(), true);
-        $scope.$watchCollection(function () {
             return _this.geolocation;
         }, this.updateGeolocationMapmarker(), true);
 
@@ -415,6 +412,7 @@ var PageController = function () {
 
                 // add distance decorators and sort by distance from me; note the wrapped nature here
                 _this2.updateGeolocationResultsList()();
+                _this2.updateSort();
 
                 // center the map on our own location
                 _this2.resultsmap.setCenter({ lat: _this2.geolocation[0], lng: _this2.geolocation[1] });
@@ -463,71 +461,76 @@ var PageController = function () {
 
                 // then sort the list so closest locations come first
                 // in event of a tie (same location, listed multiple times for different service-times) sort by starting time
-                _this4.search.results.sort(function (p, q) {
-                    // sorting depends on their choice
-                    switch (_this4.search.sortby) {
-                        case 'distance':
-                            if (!p.DistanceMiles) return -1; // no location = send to the end of the list
-                            if (!q.DistanceMiles) return -1; // no location = send to the end of the list
-                            if (p.DistanceMiles != q.DistanceMiles) {
-                                return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
-                            }
-
-                            if (!p.StartTimeObject) return 1; // no start time = send to start of these tied locations
-                            if (!q.StartTimeObject) return 1; // no start time = send to start of these tied locations
-                            if (p.StartTimeObject != q.StartTimeObject) {
-                                return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
-                            }
-                            return 0;
-                        case 'time':
-                            if (!p.StartTimeObject) return 1; // no start time = send to start of list
-                            if (!q.StartTimeObject) return 1; // no start time = send to start of list
-                            if (p.StartTimeObject != q.StartTimeObject) {
-                                return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
-                            }
-
-                            if (!p.DistanceMiles) return -1; // no location = send to the end of the list
-                            if (!q.DistanceMiles) return -1; // no location = send to the end of the list
-                            if (p.DistanceMiles != q.DistanceMiles) {
-                                return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
-                            }
-                            return 0;
-                        default:
-                            throw 'updateGeolocationResultsList: unknown sorting: ' + _this4.search.sortby;
-                    }
-                });
             };
+        }
+    }, {
+        key: 'updateSort',
+        value: function updateSort() {
+            var _this5 = this;
+
+            this.search.results.sort(function (p, q) {
+                // sorting depends on their choice
+                if (_this5.search.sortby == 'distance') {
+                    if (!p.DistanceMiles) return -1; // no location = send to the end of the list
+                    if (!q.DistanceMiles) return -1; // no location = send to the end of the list
+                    if (p.DistanceMiles != q.DistanceMiles) {
+                        return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
+                    }
+
+                    if (!p.StartTimeObject) return 1; // no start time = send to start of these tied locations
+                    if (!q.StartTimeObject) return 1; // no start time = send to start of these tied locations
+                    if (p.StartTimeObject != q.StartTimeObject) {
+                        return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
+                    }
+                    return 0;
+                } else if (_this5.search.sortby == 'time') {
+                    if (!p.StartTimeObject) return 1; // no start time = send to start of list
+                    if (!q.StartTimeObject) return 1; // no start time = send to start of list
+                    if (p.StartTimeObject != q.StartTimeObject) {
+                        return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
+                    }
+
+                    if (!p.DistanceMiles) return -1; // no location = send to the end of the list
+                    if (!q.DistanceMiles) return -1; // no location = send to the end of the list
+                    if (p.DistanceMiles != q.DistanceMiles) {
+                        return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
+                    }
+                    return 0;
+                } else {
+                    throw 'updateGeolocationResultsList: unknown sorting: ' + _this5.search.sortby;
+                }
+            });
         }
     }, {
         key: 'redrawLocationMarkers',
         value: function redrawLocationMarkers() {
-            var _this5 = this;
+            var _this6 = this;
 
             // wrapped function for use with $watch
             return function () {
                 // empty current markers
-                _this5.resultsmap.locations.forEach(function (marker) {
+                _this6.resultsmap.locations.forEach(function (marker) {
                     marker.setMap(null);
                 });
-                _this5.resultsmap.locations = [];
+                _this6.resultsmap.locations = [];
 
                 // load the new ones
-                _this5.search.results.forEach(function (item) {
+                _this6.search.results.forEach(function (item) {
                     if (!item.LatLng) return; // some lack a location
 
                     var marker = new google.maps.Marker({
                         icon: 'images/location.svg',
                         position: { lat: item.LatLng[0], lng: item.LatLng[1] },
                         title: item.AgencyName,
-                        map: _this5.resultsmap,
+                        map: _this6.resultsmap,
                         details: item // the raw attribute details
                     });
 
-                    _this5.resultsmap.locations.push(marker);
+                    _this6.resultsmap.locations.push(marker);
 
                     google.maps.event.addListener(marker, 'click', function () {
-                        _this5.$scope.$evalAsync(function () {
-                            _this5.resultdetails = marker.details;
+                        _this6.$scope.$evalAsync(function () {
+                            _this6.resultdetails = marker.details;
                         });
                     });
                 });
@@ -550,11 +553,11 @@ var PageController = function () {
     }, {
         key: 'zoomMapToLatLng',
         value: function zoomMapToLatLng(latlng, switchtomap) {
-            var _this6 = this;
+            var _this7 = this;
 
             var doit = function doit() {
-                _this6.resultsmap.setCenter({ lat: latlng[0], lng: latlng[1] });
-                _this6.resultsmap.setZoom(16);
+                _this7.resultsmap.setCenter({ lat: latlng[0], lng: latlng[1] });
+                _this7.resultsmap.setZoom(16);
             };
 
             if (switchtomap && !this.showmap) {
