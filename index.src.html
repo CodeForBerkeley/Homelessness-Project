@@ -49,7 +49,7 @@
         <button ng-class="{ 'btn': true, 'btn-block':true, 'btn-primary': true, 'btn-success': app.search.date.YMD() >  app.tomorrow.YMD() }" ng-click="app.pickDate('clear'); app.pickDate('date');">Pick a Day</button>
 
         <br/>
-        <button class="btn btn-block btn-success" ng-click="app.performSearch();"><i class="glyphicon glyphicon-search"></i> Search</button>
+        <button class="btn btn-block btn-success" ng-click=" app.search.sortby='time'; app.performSearch();"><i class="glyphicon glyphicon-search"></i> Search</button>
     </div>
 
     <!-- search had no results -->
