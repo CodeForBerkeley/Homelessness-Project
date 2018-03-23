@@ -471,27 +471,27 @@ var PageController = function () {
             this.search.results.sort(function (p, q) {
                 // sorting depends on their choice
                 if (_this5.search.sortby == 'distance') {
-                    if (!p.DistanceMiles) return -1; // no location = send to the end of the list
-                    if (!q.DistanceMiles) return -1; // no location = send to the end of the list
+                    if (!p.DistanceMiles && q.DistanceMiles) return -1; // no location = send to the end of the list
+                    if (!q.DistanceMiles && p.DistanceMiles) return -1; // no location = send to the end of the list
                     if (p.DistanceMiles != q.DistanceMiles) {
                         return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
                     }
 
-                    if (!p.StartTimeObject) return 1; // no start time = send to start of these tied locations
-                    if (!q.StartTimeObject) return 1; // no start time = send to start of these tied locations
+                    if (!p.StartTimeObject && q.StartTimeObject) return 1; // no start time = send to start of these tied locations
+                    if (!q.StartTimeObject && p.StartTimeObject) return 1; // no start time = send to start of these tied locations
                     if (p.StartTimeObject != q.StartTimeObject) {
                         return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
                     }
                     return 0;
                 } else if (_this5.search.sortby == 'time') {
-                    if (!p.StartTimeObject) return 1; // no start time = send to start of list
-                    if (!q.StartTimeObject) return 1; // no start time = send to start of list
+                    if (!p.StartTimeObject && q.StartTimeObject) return 1; // no start time = send to start of list
+                    if (!q.StartTimeObject && p.StartTimeObject) return 1; // no start time = send to start of list
                     if (p.StartTimeObject != q.StartTimeObject) {
                         return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
                     }
 
-                    if (!p.DistanceMiles) return -1; // no location = send to the end of the list
-                    if (!q.DistanceMiles) return -1; // no location = send to the end of the list
+                    if (!p.DistanceMiles && q.DistanceMiles) return -1; // no location = send to the end of the list
+                    if (!q.DistanceMiles && p.DistanceMiles) return -1; // no location = send to the end of the list
                     if (p.DistanceMiles != q.DistanceMiles) {
                         return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
                     }
