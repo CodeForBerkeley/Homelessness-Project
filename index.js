@@ -475,7 +475,10 @@ var PageController = function () {
 
                             if (!p.StartTimeObject) return 1; // no start time = send to start of these tied locations
                             if (!q.StartTimeObject) return 1; // no start time = send to start of these tied locations
-                            return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
+                            if (p.StartTimeObject != q.StartTimeObject) {
+                                return p.StartTimeObject > q.StartTimeObject ? 1 : -1;
+                            }
+                            return 0;
                         case 'time':
                             if (!p.StartTimeObject) return 1; // no start time = send to start of list
                             if (!q.StartTimeObject) return 1; // no start time = send to start of list
@@ -485,7 +488,10 @@ var PageController = function () {
 
                             if (!p.DistanceMiles) return -1; // no location = send to the end of the list
                             if (!q.DistanceMiles) return -1; // no location = send to the end of the list
-                            return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
+                            if (p.DistanceMiles != q.DistanceMiles) {
+                                return p.DistanceMiles > q.DistanceMiles ? 1 : -1;
+                            }
+                            return 0;
                         default:
                             throw 'updateGeolocationResultsList: unknown sorting: ' + _this4.search.sortby;
                     }
