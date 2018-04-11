@@ -143,11 +143,11 @@ var WEEKDAYS_LOOKUP = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 // API key for Airtable
 // USE A READ-ONLY USER because this could become visible to anyone who views the source
-var AIRTABLE_API_KEY = "keymXIGCYEoPy4vib";
+var AIRTABLE_API_KEY = "keybrmB5yUbxu9uRU";
 
 // the URL of the table
 // which includes the account hash and URL-encoded table name
-var AIRTABLE_SEARCH_URL = "https://api.airtable.com/v0/appv6KlqHiaOSlrcQ/All%20Services";
+var AIRTABLE_SEARCH_URL = "https://api.airtable.com/v0/appHz8xpayH3nmscX/All%20Services";
 
 // the list of services offered for selection
 // this MUST match the domain values in the Airtable
