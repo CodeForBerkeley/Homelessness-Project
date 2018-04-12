@@ -72,7 +72,7 @@ const SERVICES_OFFERED = [
     "Food",
     "Health Care",
     "Housing",
-    "Hygiene",
+    "Shower",
     "Legal",
     "Mail",
     "Mental Health",

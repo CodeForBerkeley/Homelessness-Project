@@ -155,7 +155,7 @@ var AIRTABLE_SEARCH_URL = "https://api.airtable.com/v0/appHz8xpayH3nmscX/All%20S
 // e.g. Health and Mental Health would both match "Health", and there would be no way to fetch only Health records (maybe some postprocessing?)
 // so just don't do it! use distinct-enough values that substrings won't match
 // sorry but that's the degree of Airtable's support for multiple-choice values
-var SERVICES_OFFERED = ["Case Management", "Clothing/Blankets/Sleeping Bags", "Computer Access", "Drop In", "Food", "Health Care", "Housing", "Hygiene", "Legal", "Mail", "Mental Health", "Phone", "Referrals", "Restroom", "Shelter", "Substance Abuse"];
+var SERVICES_OFFERED = ["Case Management", "Clothing/Blankets/Sleeping Bags", "Computer Access", "Drop In", "Food", "Health Care", "Housing", "Shower", "Legal", "Mail", "Mental Health", "Phone", "Referrals", "Restroom", "Shelter", "Substance Abuse"];
 
 // the URL where one may contact to report bugs; we just use a mailto link whichnwork A-OK on mobile
 var CONTACT_URL = "mailto:dorothydayhouse@gmail.com?subject=Feedback on eastbay.homeless-connection.org";
