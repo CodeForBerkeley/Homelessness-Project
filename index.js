@@ -351,6 +351,7 @@ var PageController = function () {
                 var upperTerm = term.toUpperCase();
                 var upperFirst = lowerTerm.charAt(0).toUpperCase() + lowerTerm.slice(1);
                 fields.forEach(function (field) {
+                    formula.push('FIND("' + term + '", {' + field + '}) > 0');
                     formula.push('FIND("' + lowerTerm + '", {' + field + '}) > 0');
                     formula.push('FIND("' + upperTerm + '", {' + field + '}) > 0');
                     formula.push('FIND("' + upperFirst + '", {' + field + '}) > 0');
