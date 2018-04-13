@@ -21,8 +21,8 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAL9z5bBfPe2FfwUmUik-xX1_unw-7PwYA"></script>
 
     <!-- local config -->
-    <link href="index.css?Thu Apr 12 2018 19:38:06 GMT-0700 (PDT)" rel="stylesheet" />
-    <script src="index.js?Thu Apr 12 2018 19:38:06 GMT-0700 (PDT)"></script>
+    <link href="index.css?Thu Apr 12 2018 20:27:08 GMT-0700 (PDT)" rel="stylesheet" />
+    <script src="index.js?Thu Apr 12 2018 20:27:08 GMT-0700 (PDT)"></script>
 </head>
 <body ng-app="app" ng-controller="PageController as app">
 
@@ -42,6 +42,7 @@
         <span ng-repeat="option in app.services_list">
             <label><input type="checkbox" checklist-model="app.search.services" checklist-value="option" /> {{ option }}</label><br/>
         </span>
+        <input type="input" ng-model="app.search.searchword">
 
         <h3>When?</h3>
         <button ng-class="{ 'btn': true, 'btn-block':true, 'btn-primary': true, 'btn-success': app.search.date.YMD() == app.today.YMD() }" ng-click="app.pickDate('today');">Today</button>
@@ -61,6 +62,7 @@
             <span ng-repeat="searchterm in app.search.services" ng-click="app.removeSearchService(searchterm)">
             {{ searchterm }} <i class="glyphicon glyphicon-remove"></i>
             </span>
+            <span ng-show="app.search.searchword" ng-click="app.removeSearchTerm()">{{ app.search.searchword }}<i class="glyphicon glyphicon-remove"></i></span>
         </div>
 
         <p>No service providers were found matching all of your needs.</p>
@@ -119,6 +121,7 @@
                 <span ng-repeat="searchterm in app.search.services" ng-click="app.removeSearchService(searchterm)">
                 {{ searchterm }} <i class="glyphicon glyphicon-remove"></i>
                 </span>
+                <span ng-show="app.search.searchword" ng-click="app.removeSearchTerm()">{{ app.search.searchword }}<i class="glyphicon glyphicon-remove"></i></span>
             </div>
 
             <div class="resultslist-sorting">

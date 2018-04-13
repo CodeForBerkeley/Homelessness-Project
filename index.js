@@ -321,7 +321,7 @@ var PageController = function () {
             var _this2 = this;
 
             // check required
-            if (!this.search.services.length) return alert("Select the help you are trying to find.");
+            if (!this.search.services.length && !this.search.searchword) return alert("Select the help you are trying to find.");
             if (!this.search.date) return alert("Select a date.");
 
             // about to do a search; if we're showing any details for a location, they're no longer useful
@@ -342,12 +342,25 @@ var PageController = function () {
             this.search.services.forEach(function (wanted) {
                 formula.push('FIND("' + wanted + '", {Services Offered}) > 0');
             });
+
+            // search for specific word
+            if (this.search.searchword) {
+                var fields = ["Agency", "AgencyName", "Services Offered", "Details"];
+                var term = this.search.searchword;
+                var lowerTerm = term.toLowerCase();
+                var upperTerm = term.toUpperCase();
+                var upperFirst = lowerTerm.charAt(0).toUpperCase() + lowerTerm.slice(1);
+                fields.forEach(function (field) {
+                    formula.push('FIND("' + lowerTerm + '", {' + field + '}) > 0');
+                    formula.push('FIND("' + upperTerm + '", {' + field + '}) > 0');
+                    formula.push('FIND("' + upperFirst + '", {' + field + '}) > 0');
+                });
+            }
             formula = 'AND(' + day + ', OR(' + formula.join(", ") + '))';
             // compose the query and send it off
             var params = {
                 filterByFormula: formula
             };
-
             this.busy = true;
             this.$http({
                 method: 'GET',
@@ -590,7 +603,7 @@ var PageController = function () {
                 return thisterm != servicename;
             });
 
-            if (options.exitifnoselections && !this.search.services.length) {
+            if (options.exitifnoselections && !this.search.services.length && !this.search.searchword) {
                 this.searchBack();
                 return;
             }
@@ -598,6 +611,16 @@ var PageController = function () {
             if (options.thensearch) {
                 this.performSearch();
             }
+        }
+    }, {
+        key: 'removeSearchTerm',
+        value: function removeSearchTerm() {
+            this.search.searchword = "";
+            if (!this.search.services.length) {
+                this.searchBack();
+                return;
+            }
+            this.performSearch();
         }
     }]);
 
