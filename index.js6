@@ -66,21 +66,28 @@ const AIRTABLE_SEARCH_URL = "https://api.airtable.com/v0/appHz8xpayH3nmscX/All%2
 // sorry but that's the degree of Airtable's support for multiple-choice values
 const SERVICES_OFFERED = [
     "Case Management",
+    "Child/Young Adult",
     "Clothing/Blankets/Sleeping Bags",
     "Computer Access",
+    "Dental",
     "Drop In",
     "Food",
     "Health Care",
     "Housing",
-    "Shower",
+    "Laundry",
     "Legal",
+    "LGBTQ+",
     "Mail",
+    "Medical",
     "Mental Health",
+    "Pets",
     "Phone",
     "Referrals",
     "Restroom",
     "Shelter",
+    "Shower",
     "Substance Abuse",
+    "Women"
 ];
 
 // the URL where one may contact to report bugs; we just use a mailto link whichnwork A-OK on mobile
