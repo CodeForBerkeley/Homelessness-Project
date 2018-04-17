@@ -40,17 +40,9 @@
     <div ng-show="! app.search.done" class="container-fluid" id="searchform">
         <h3>What Do You Need?</h3>
         <span ng-repeat="option in app.services_list">
-            <label><input type="checkbox" checklist-model="app.search.services" checklist-value="option" /> {{ option }}</label><br/>
+            <button ng-click="app.search.services=[option]; app.pickDate('today'); app.search.sortby='time'; app.performSearch();">{{ option }}</button>
+            <br>
         </span>
-        <input type="input" ng-model="app.search.searchword">
-
-        <h3>When?</h3>
-        <button ng-class="{ 'btn': true, 'btn-block':true, 'btn-primary': true, 'btn-success': app.search.date.YMD() == app.today.YMD() }" ng-click="app.pickDate('today');">Today</button>
-        <button ng-class="{ 'btn': true, 'btn-block':true, 'btn-primary': true, 'btn-success': app.search.date.YMD() == app.tomorrow.YMD() }" ng-click="app.pickDate('tomorrow');">Tomorrow</button>
-        <button ng-class="{ 'btn': true, 'btn-block':true, 'btn-primary': true, 'btn-success': app.search.date.YMD() >  app.tomorrow.YMD() }" ng-click="app.pickDate('clear'); app.pickDate('date');">Pick a Day</button>
-
-        <br/>
-        <button class="btn btn-block btn-success" ng-click=" app.search.sortby='time'; app.performSearch();"><i class="glyphicon glyphicon-search"></i> Search</button>
     </div>
 
     <!-- search had no results -->
