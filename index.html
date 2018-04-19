@@ -40,7 +40,7 @@
     <div ng-show="! app.search.done" class="container-fluid" id="searchform">
         <h3>What Do You Need?</h3>
         <span ng-repeat="option in app.services_list">
-            <button id="searchbutton_{{ option }}" ng-click="app.search.services.push(option); app.pickDate('today'); app.search.sortby='time'; app.performSearch();">{{ option }}</button>
+            <button id="searchbutton_{{ option }}" class="btn waves-effect waves-light" type="submit" ng-click="app.search.services.push(option); app.pickDate('today'); app.search.sortby='time'; app.performSearch();">{{ option }}</button>
             <br/>
         </span>
         <input type="input" ng-model="app.search.searchword" placeholder="Search">
