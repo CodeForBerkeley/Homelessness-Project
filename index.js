@@ -149,6 +149,9 @@ var AIRTABLE_API_KEY = "keybrmB5yUbxu9uRU";
 // which includes the account hash and URL-encoded table name
 var AIRTABLE_SEARCH_URL = "https://api.airtable.com/v0/appHz8xpayH3nmscX/All%20Services";
 
+// escapes airtable injection and xss
+var DISALLOWED_SEARCH_TERMS = ['(', ')', '<', '>'];
+
 // the list of services offered for selection
 // this MUST match the domain values in the Airtable
 // DANGER! Airtable uses substring matching so one could get false matches,
@@ -325,6 +328,11 @@ var PageController = function () {
             if (!this.search.date) return alert("Select a date.");
             if (this.search.services.length && this.search.searchword) {
                 this.search.searchword = '';
+            }
+            for (var i = 0; i < this.search.searchword.length; i++) {
+                if (DISALLOWED_SEARCH_TERMS.includes(this.search.searchword.charAt(i))) {
+                    return alert("Invalid search. Please try again.");
+                }
             }
 
             // about to do a search; if we're showing any details for a location, they're no longer useful
