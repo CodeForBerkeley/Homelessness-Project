@@ -329,9 +329,11 @@ var PageController = function () {
             if (this.search.services.length && this.search.searchword) {
                 this.search.searchword = '';
             }
-            for (var i = 0; i < this.search.searchword.length; i++) {
-                if (DISALLOWED_SEARCH_TERMS.includes(this.search.searchword.charAt(i))) {
-                    return alert("Invalid search. Please try again.");
+            if (this.search.searchword) {
+                for (var i = 0; i < this.search.searchword.length; i++) {
+                    if (DISALLOWED_SEARCH_TERMS.includes(this.search.searchword.charAt(i))) {
+                        return alert("Invalid search. Please try again.");
+                    }
                 }
             }
 
