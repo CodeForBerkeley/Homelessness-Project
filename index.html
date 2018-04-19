@@ -21,8 +21,8 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAL9z5bBfPe2FfwUmUik-xX1_unw-7PwYA"></script>
 
     <!-- local config -->
-    <link href="index.css?Tue Apr 17 2018 13:52:48 GMT-0700 (PDT)" rel="stylesheet" />
-    <script src="index.js?Tue Apr 17 2018 13:52:48 GMT-0700 (PDT)"></script>
+    <link href="index.css?Wed Apr 18 2018 17:49:28 GMT-0700 (PDT)" rel="stylesheet" />
+    <script src="index.js?Wed Apr 18 2018 17:49:28 GMT-0700 (PDT)"></script>
 </head>
 <body ng-app="app" ng-controller="PageController as app">
 
@@ -40,9 +40,11 @@
     <div ng-show="! app.search.done" class="container-fluid" id="searchform">
         <h3>What Do You Need?</h3>
         <span ng-repeat="option in app.services_list">
-            <button ng-click="app.search.services=[option]; app.pickDate('today'); app.search.sortby='time'; app.performSearch();">{{ option }}</button>
-            <br>
+            <button class="searchbutton" id="searchbutton_{{ option }}" ng-click="app.addOrRemoveService(option);">{{ option }}</button>
+            <br/>
         </span>
+        <input type="input" ng-model="app.search.searchword" placeholder="Search">
+        <button class="btn btn-block btn-success" ng-click="app.pickDate('today'); app.search.sortby='time'; app.performSearch();"><i class="glyphicon glyphicon-search"></i> Search</button>
     </div>
 
     <!-- search had no results -->
