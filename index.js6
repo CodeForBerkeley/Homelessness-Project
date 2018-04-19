@@ -239,6 +239,9 @@ class PageController {
         // check required
         if (! this.search.services.length && !this.search.searchword) return alert("Select the help you are trying to find.");
         if (! this.search.date) return alert("Select a date.");
+        if (this.search.services.length && this.search.searchword) {
+            this.search.searchword = '';
+        }
 
         // about to do a search; if we're showing any details for a location, they're no longer useful
         this.resultdetails = null;
