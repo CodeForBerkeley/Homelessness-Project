@@ -157,9 +157,6 @@ var AIRTABLE_SEARCH_URL = "https://api.airtable.com/v0/appHz8xpayH3nmscX/All%20S
 // sorry but that's the degree of Airtable's support for multiple-choice values
 var SERVICES_OFFERED = ["Case Management", "Child/Young Adult", "Clothing/Blankets/Sleeping Bags", "Computer Access", "Dental", "Drop In", "Food", "Health Care", "Housing", "Laundry", "Legal", "LGBTQ+", "Mail", "Medical", "Mental Health", "Pets", "Phone", "Referrals", "Restroom", "Shelter", "Shower", "Substance Abuse", "Women"];
 
-var BUTTON_UNSELECTED = '#D0D0D0';
-var BUTTON_SELECTED = '#ADD8E6';
-
 // the URL where one may contact to report bugs; we just use a mailto link whichnwork A-OK on mobile
 var CONTACT_URL = "mailto:dorothydayhouse@gmail.com?subject=Feedback on eastbay.homeless-connection.org";
 
@@ -316,28 +313,6 @@ var PageController = function () {
                 case 'clear':
                     this.search.date = null;
                     break;
-            }
-        }
-    }, {
-        key: 'getBackgroundColor',
-        value: function getBackgroundColor(option) {
-            var index = this.search.services.indexOf(option);
-            if (index == -1) {
-                return BUTTON_UNSELECTED;
-            } else {
-                return BUTTON_SELECTED;
-            }
-        }
-    }, {
-        key: 'addOrRemoveService',
-        value: function addOrRemoveService(option) {
-            var index = this.search.services.indexOf(option);
-            if (index != -1) {
-                this.search.services.splice(index, 1);
-                document.getElementById('searchbutton_' + option).style.background = BUTTON_UNSELECTED;
-            } else {
-                this.search.services.push(option);
-                document.getElementById('searchbutton_' + option).style.background = BUTTON_SELECTED;
             }
         }
     }, {
@@ -583,10 +558,6 @@ var PageController = function () {
             this.search.services = [];
             this.search.results = [];
             this.search.searchword = '';
-            for (var i = 0; i < SERVICES_OFFERED.length; i++) {
-                var service = SERVICES_OFFERED[i];
-                document.getElementById('searchbutton_' + service).style.background = BUTTON_UNSELECTED;
-            }
         }
     }, {
         key: 'zoomMapToGeolocation',
