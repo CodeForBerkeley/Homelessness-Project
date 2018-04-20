@@ -165,9 +165,10 @@ nav.navbar {
                 div.distance {
                     float: right;
                     border-radius: 5px;
-                    padding: 3px;
+                    padding: 5px;
+                    width: 20%;
 
-                    font-size: 11px;
+                    font-size: 16px;
                     background-color: #FAFAFA;
                     border: 1px solid silver;
 
@@ -361,6 +362,7 @@ div.map-control-button {
 div.map-control-text {
 }
 
+
 div.map-control-text-details {
     /* full-width panel anchored to bottom-left of map, implemented as a control */
     width: 100%;
@@ -419,4 +421,20 @@ div.map-control-text-details {
     div.contactus {
         margin-top: 2px;
     }
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: sans-serif;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 5px;
+  /* 2 */
+  width: 100%;
 }

@@ -21,9 +21,15 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAL9z5bBfPe2FfwUmUik-xX1_unw-7PwYA"></script>
 
     <!-- local config -->
+<<<<<<< HEAD
     <link href="index.css?Thu Apr 19 2018 20:07:58 GMT-0700 (PDT)" rel="stylesheet" />
     <link rel="stylesheet" href="materialize.css">
     <script src="index.js?Thu Apr 19 2018 20:07:58 GMT-0700 (PDT)"></script>
+=======
+    <link href="index.css?Thu Apr 19 2018 19:49:32 GMT-0700 (PDT)" rel="stylesheet" />
+    <link rel="stylesheet" href="materialize.css">
+    <script src="index.js?Thu Apr 19 2018 19:49:32 GMT-0700 (PDT)"></script>
+>>>>>>> fdc1d9c62f7e4dbb06c5b98dd328d5fd4a2fd8dd
 </head>
 <body ng-app="app" ng-controller="PageController as app">
 
@@ -44,8 +50,8 @@
             <button id="searchbutton_{{ option }}" ng-click="app.search.services.push(option); app.pickDate('today'); app.search.sortby='time'; app.performSearch();" class="waves-effect waves-light btn-large">{{ option }}</button>
         </span>
         <br><br>
-        <input type="input" ng-model="app.search.searchword" placeholder="Search">
-        <button class="btn btn-block btn-success" ng-click="app.pickDate('today'); app.search.sortby='time'; app.performSearch();"><i class="glyphicon glyphicon-search"></i> Search</button>
+        <input type="input" ng-model="app.search.searchword" placeholder="Search" style="font-size:20px;">
+        <button class="btn" ng-click="app.pickDate('today'); app.search.sortby='time'; app.performSearch();" style="background-color: green; width: 100%;"><i class="glyphicon glyphicon-search"></i> Search</button>
     </div>
 
     <!-- search had no results -->
@@ -127,27 +133,27 @@
 
             <ul>
                 <li ng-repeat="result in app.search.results">
-                    <div class="distance" ng-show="result.DistanceMiles"><a href="javascript:void(0);" ng-click="app.zoomMapToLatLng(result.LatLng, true); app.resultdetails = result;">{{ result.DistanceMiles.toFixed(1) }} miles<br/>from you</a></div>
+                    <div class="distance" ng-show="result.DistanceMiles"><a href="javascript:void(0);" ng-click="app.zoomMapToLatLng(result.LatLng, true); app.resultdetails = result;">{{ result.DistanceMiles.toFixed(1) }} miles from you.<br>SEE MAP</a></div>
 
                     <div class="times" ng-show="result.StartTime && result.EndTime">{{ result.StartTime }} - {{ result.EndTime }}</div>
-                    <div class="times" ng-show="result.StartTime && ! result.EndTime">Starting at {{ result.StartTime }}</div>
+                    <div class="times indent" ng-show="result.StartTime && ! result.EndTime">Starting at {{ result.StartTime }}</div>
                     <div class="times" ng-show="! result.StartTime && result.EndTime">Until {{ result.EndTime }}</div>
                     <!-- Test to see where to put services offered -->
                     <!-- TODO: Make services offered its own class in css/scss -->
-                    <div class="serviceterms">
+                    <div class="serviceterms indent">
                         <span ng-repeat="service in result.Services">
                             {{ service }}
                         </span>
                     </div>
                     <div class="name indent">{{ result.AgencyName }}</div>
-                    <div class="address indent">{{ result.Address }}</div>
+                    <div class="address indent" ng-if="result.Address" ng-bind-html="app.makeDirectionsLink(result.Address, result.LatLng)" title="Get Directions"></div>
+
+                    <!--><div class="address" ng-if="app.resultdetails.Address" ng-bind-html="app.makeDirectionsLink(app.resultdetails.Address, app.resultdetails.LatLng)" title="Get directions"></div></!-->
 
                     <div class="details indent" ng-show="result.Details">{{ result.Details }}</div>
                     <div class="resultborder"></div>
                 </li>
             </ul>
-
-            <p class="fewresults">Not getting many results? Try searching for fewer services at once. The form tries to find places that offer ALL the services you selected. Searching for fewer services often shows more results.</p>
         </div>
     </div>
 
@@ -163,7 +169,7 @@
                 Data provided by <a target="_blank" href="https://dorothydayhouseberkeley.org">Dorothy Day House, Berkeley</a>
             </div>
             <div class="col-xs-12 col-sm-6">
-                Application by <a href="_blank" target="http://www.greeninfo.org/">GreenInfo Network</a>
+                Application by <a href="_blank" target="http://www.greeninfo.org/">GreenInfo Network</a> and Code For Berkeley.
             </div>
         </div>
     </div>

@@ -2381,7 +2381,7 @@ textarea {
   /* 1 */
   margin: 5px;
   /* 2 */
-  width: 95%;
+  width: 100%;
 }
 
 
@@ -5234,7 +5234,7 @@ small {
 .btn-large,
 .btn-small,
 .btn-flat {
-  font-size: 14px;
+  font-size: 24px;
   outline: 0;
 }
 
@@ -5523,7 +5523,7 @@ button.btn-floating {
 .btn-large {
   height: 54px;
   line-height: 54px;
-  font-size: 15px;
+  font-size: 24px;
   padding: 0 28px;
 }
 
