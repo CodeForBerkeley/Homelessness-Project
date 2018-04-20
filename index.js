@@ -406,7 +406,7 @@ var PageController = function () {
                     // new synthetic field: Start and End times, prettier version for rendering
                     item.fields.StartTime = item.fields['Start Hour'] ? (item.fields['Start Hour'] >= '10' ? item.fields['Start Hour'] : item.fields['Start Hour'].substr(1)) + ':' + item.fields['Start Minute'] + ' ' + item.fields['Start AM-PM'] : '';
                     item.fields.EndTime = item.fields['End Hour'] ? (item.fields['End Hour'] >= '10' ? item.fields['End Hour'] : item.fields['End Hour'].substr(1)) + ':' + item.fields['End Minute'] + ' ' + item.fields['End AM-PM'] : '';
-
+                    console.log(item.fields);
                     // new synthetic fields: Start and End time as a JS Date objects usable for sorting and filtering
                     if (item.fields['Start Hour'] && item.fields['Start Minute'] && item.fields['Start AM-PM']) {
                         item.fields.StartTimeObject = new Date();
@@ -429,13 +429,13 @@ var PageController = function () {
 
                 // if the search was for Today we can filter out already-finished events
                 // do this after the data massaging so we have usable Date objects for comparison
-                if (_this2.today == _this2.search.date) {
-                    var rightnow = new Date();
-                    _this2.search.results = _this2.search.results.filter(function (item) {
-                        if (!item.EndTimeObject) return true; // no end time given, so it has not ended (overnight events)
-                        return item.EndTimeObject > rightnow;
-                    });
-                }
+                // if (this.today == this.search.date) {
+                //     const rightnow = new Date();
+                //     this.search.results = this.search.results.filter(item => {
+                //         if (! item.EndTimeObject) return true;  // no end time given, so it has not ended (overnight events)
+                //         return item.EndTimeObject > rightnow;
+                //     });
+                // }
 
                 // add distance decorators and sort by distance from me; note the wrapped nature here
                 _this2.updateGeolocationResultsList()();
