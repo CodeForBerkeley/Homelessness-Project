@@ -21,15 +21,9 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAL9z5bBfPe2FfwUmUik-xX1_unw-7PwYA"></script>
 
     <!-- local config -->
-<<<<<<< HEAD
-    <link href="index.css?Thu Apr 19 2018 20:07:58 GMT-0700 (PDT)" rel="stylesheet" />
+    <link href="index.css?Thu Apr 19 2018 20:12:53 GMT-0700 (PDT)" rel="stylesheet" />
     <link rel="stylesheet" href="materialize.css">
-    <script src="index.js?Thu Apr 19 2018 20:07:58 GMT-0700 (PDT)"></script>
-=======
-    <link href="index.css?Thu Apr 19 2018 19:49:32 GMT-0700 (PDT)" rel="stylesheet" />
-    <link rel="stylesheet" href="materialize.css">
-    <script src="index.js?Thu Apr 19 2018 19:49:32 GMT-0700 (PDT)"></script>
->>>>>>> fdc1d9c62f7e4dbb06c5b98dd328d5fd4a2fd8dd
+    <script src="index.js?Thu Apr 19 2018 20:12:53 GMT-0700 (PDT)"></script>
 </head>
 <body ng-app="app" ng-controller="PageController as app">
 
@@ -135,7 +129,7 @@
                 <li ng-repeat="result in app.search.results">
                     <div class="distance" ng-show="result.DistanceMiles"><a href="javascript:void(0);" ng-click="app.zoomMapToLatLng(result.LatLng, true); app.resultdetails = result;">{{ result.DistanceMiles.toFixed(1) }} miles from you.<br>SEE MAP</a></div>
 
-                    <div class="times" ng-show="result.StartTime && result.EndTime">{{ result.StartTime }} - {{ result.EndTime }}</div>
+                    <div class="times indent" ng-show="result.StartTime && result.EndTime">Open {{ result.StartTime }} to {{ result.EndTime }}</div>
                     <div class="times indent" ng-show="result.StartTime && ! result.EndTime">Starting at {{ result.StartTime }}</div>
                     <div class="times" ng-show="! result.StartTime && result.EndTime">Until {{ result.EndTime }}</div>
                     <!-- Test to see where to put services offered -->
