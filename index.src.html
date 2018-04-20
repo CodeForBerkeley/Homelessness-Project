@@ -140,7 +140,7 @@
                         </span>
                     </div>
                     <div class="name indent">{{ result.AgencyName }}</div>
-                    <div class="address indent">{{ result.Address }}</div>
+                    <div class="address indent" ng-if="result.Address" ng-bind-html="app.makeDirectionsLink(result.Address, result.LatLng)" title="Get Directions"></div>
 
                     <!--><div class="address" ng-if="app.resultdetails.Address" ng-bind-html="app.makeDirectionsLink(app.resultdetails.Address, app.resultdetails.LatLng)" title="Get directions"></div></!-->
 
