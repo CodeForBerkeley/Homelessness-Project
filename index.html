@@ -21,9 +21,9 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAL9z5bBfPe2FfwUmUik-xX1_unw-7PwYA"></script>
 
     <!-- local config -->
-    <link href="index.css?Mon Apr 23 2018 17:38:59 GMT-0700 (PDT)" rel="stylesheet" />
+    <link href="index.css?Mon Apr 23 2018 17:45:43 GMT-0700 (PDT)" rel="stylesheet" />
     <link rel="stylesheet" href="materialize.css">
-    <script src="index.js?Mon Apr 23 2018 17:38:59 GMT-0700 (PDT)"></script>
+    <script src="index.js?Mon Apr 23 2018 17:45:43 GMT-0700 (PDT)"></script>
 </head>
 <body ng-app="app" ng-controller="PageController as app">
 
@@ -74,13 +74,13 @@
                     <a href="javascript:void(0);" ng-click="app.searchBack();" class="backbutton"><i class="glyphicon glyphicon-chevron-left"></i> Search Again</a>
                 </div>
                 <div class="col-xs-6 right">
-                    <button class="waves-effect waves-light btn-floating" ng-click="app.increaseFontSize();" ng-show="app.search.done">+</button>
-                    <button class="waves-effect waves-light btn-floating" ng-click="app.decreaseFontSize();" ng-show="app.search.done">-</button>
                     <a href="javascript:void(0);" ng-click="app.showmap = true;" ng-class="{ 'active': app.showmap }">Map</a>
                     &nbsp;
                     <a href="javascript:void(0);" ng-click="app.showmap = false;" ng-class="{ 'active': ! app.showmap }">List</a>
                 </div>
             </div>
+            <button class="waves-effect waves-light btn-large" ng-click="app.increaseFontSize();" ng-show="app.search.done">Increase text size</button>
+            <button class="waves-effect waves-light btn-large" ng-click="app.decreaseFontSize();" ng-show="app.search.done">Decrease text size</button>
         </div>
 
         <!-- results map; see Google Maps setup -->
