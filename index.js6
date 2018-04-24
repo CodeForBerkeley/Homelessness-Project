@@ -238,6 +238,86 @@ class PageController {
         }
     }
 
+    decreaseFontSize() {
+        if (this.search.done === false) {
+            return;
+        }
+        var fields = ['div.times', 'div.name', 'div.address'];
+        for (var f = 0; f < fields.length; f++) {
+            var li = document.getElementById('resultslist').querySelectorAll('ul li ' + fields[f]);
+            for (var i = 0; i < li.length; i++) {
+                if (li[i].style.fontSize === '') {
+                    li[i].style.fontSize = '18px';
+                }
+                if (li[i].style.fontSize === '18px') {
+                    continue;
+                }
+                var dec1 = parseInt(li[i].style.fontSize.slice(0, li[i].style.fontSize.indexOf('p'))) - 3;
+                li[i].style.fontSize = dec1.toString() + 'px';
+            }
+        }
+        var details = document.getElementById('resultslist').querySelectorAll('ul li div.details');
+        for (var j = 0; j < details.length; j++) {
+            if (details[j].style.fontSize === '') {
+                details[j].style.fontSize = '15px';
+            }
+            if (details[j].style.fontSize === '15px') {
+                continue;
+            }
+            var dec2 = parseInt(details[j].style.fontSize.slice(0, details[j].style.fontSize.indexOf('p'))) - 3;
+            details[j].style.fontSize = dec2.toString() + 'px';
+        }
+        var services = document.getElementsByClassName('serviceterms indent');
+        for (var k = 0; k < services.length; k++) {
+            for (var l = 0; l < services[k].children.length; l++) {
+                if (services[k].children[l].style.fontSize === '') {
+                    services[k].children[l].style.fontSize = '13px';
+                }
+                if (services[k].children[l].style.fontSize === '13px') {
+                    continue;
+                }
+                var dec3 = parseInt(services[k].children[l].style.fontSize.slice(0, services[k].children[l].style.fontSize.indexOf('p'))) - 3;
+                services[k].children[l].style.fontSize = dec3.toString() + 'px';
+            }
+        }
+    }
+
+    increaseFontSize() {
+        if (this.search.done === false) {
+            return;
+        }
+        var fields = ['div.times', 'div.name', 'div.address'];
+        for (var f = 0; f < fields.length; f++) {
+            var li = document.getElementById('resultslist').querySelectorAll('ul li ' + fields[f]);
+            for (var i = 0; i < li.length; i++) {
+                if (li[i].style.fontSize === '') {
+                    li[i].style.fontSize = '18px';
+                }
+                var inc1 = parseInt(li[i].style.fontSize.slice(0, li[i].style.fontSize.indexOf('p'))) + 3;
+                li[i].style.fontSize = inc1.toString() + 'px';
+            }
+        }
+        var details = document.getElementById('resultslist').querySelectorAll('ul li div.details');
+        for (var j = 0; j < details.length; j++) {
+            if (details[j].style.fontSize === '') {
+                details[j].style.fontSize = '15px';
+            }
+            var inc2 = parseInt(details[j].style.fontSize.slice(0, details[j].style.fontSize.indexOf('p'))) + 3;
+            details[j].style.fontSize = inc2.toString() + 'px';
+
+        }
+        var services = document.getElementsByClassName('serviceterms indent');
+        for (var k = 0; k < services.length; k++) {
+            for (var l = 0; l < services[k].children.length; l++) {
+                if (services[k].children[l].style.fontSize === '') {
+                    services[k].children[l].style.fontSize = '13px';
+                }
+                var inc3 = parseInt(services[k].children[l].style.fontSize.slice(0, services[k].children[l].style.fontSize.indexOf('p'))) + 3;
+                services[k].children[l].style.fontSize = inc3.toString() + 'px';
+            }
+        }
+    }
+
     performSearch () {
         // check required
         if (! this.search.services.length && !this.search.searchword) return alert("Select the help you are trying to find.");
@@ -328,7 +408,6 @@ class PageController {
                     // new synthetic field: Start and End times, prettier version for rendering
                     item.fields.StartTime = item.fields['Start Hour'] ? `${item.fields['Start Hour'] >= '10' ? item.fields['Start Hour']: item.fields['Start Hour'].substr(1)}:${item.fields['Start Minute']} ${item.fields['Start AM-PM']}` : '';
                     item.fields.EndTime   = item.fields['End Hour'] ? `${item.fields['End Hour'] >= '10' ? item.fields['End Hour'] : item.fields['End Hour'].substr(1)}:${item.fields['End Minute']} ${item.fields['End AM-PM']}` : '';
-                    console.log(item.fields);
                     // new synthetic fields: Start and End time as a JS Date objects usable for sorting and filtering
                     if (item.fields['Start Hour'] && item.fields['Start Minute'] && item.fields['Start AM-PM']) {
                         item.fields.StartTimeObject = new Date();
