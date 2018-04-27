@@ -424,8 +424,8 @@ var PageController = function () {
                 this.search.searchword = '';
             }
             if (this.search.searchword) {
-                for (var i = 0; i < this.search.searchword.length; i++) {
-                    if (DISALLOWED_SEARCH_TERMS.includes(this.search.searchword.charAt(i))) {
+                for (var _i = 0; _i < this.search.searchword.length; _i++) {
+                    if (DISALLOWED_SEARCH_TERMS.includes(this.search.searchword.charAt(_i))) {
                         return alert("Invalid search. Please try again.");
                     }
                 }
@@ -460,11 +460,25 @@ var PageController = function () {
                 var lowerTerm = term.toLowerCase();
                 var upperTerm = term.toUpperCase();
                 var upperFirst = lowerTerm.charAt(0).toUpperCase() + lowerTerm.slice(1);
+                var indicesOfSpace = [];
+                var firstLetterUpper = '';
+                for (var i = 0; i < term.length; i++) {
+                    if (term[i].match(/[a-zA-z]/)) {
+                        if (i === 0 || term[i - 1] === ' ') {
+                            firstLetterUpper = firstLetterUpper.concat(term.charAt(i).toUpperCase());
+                        } else {
+                            firstLetterUpper = firstLetterUpper.concat(term[i]);
+                        }
+                    } else {
+                        firstLetterUpper = firstLetterUpper.concat(term[i]);
+                    }
+                }
                 fields.forEach(function (field) {
                     formula.push('FIND("' + term + '", {' + field + '}) > 0');
                     formula.push('FIND("' + lowerTerm + '", {' + field + '}) > 0');
                     formula.push('FIND("' + upperTerm + '", {' + field + '}) > 0');
                     formula.push('FIND("' + upperFirst + '", {' + field + '}) > 0');
+                    formula.push('FIND("' + firstLetterUpper + '", {' + field + '}) > 0');
                 });
             }
             formula = 'AND(' + day + ', OR(' + formula.join(", ") + '))';
