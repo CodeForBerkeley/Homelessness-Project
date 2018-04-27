@@ -484,6 +484,11 @@ class PageController {
             // tag each result with its distance from my geolocation
             this.search.results.forEach(item => {
                 item.DistanceMiles = (item.LatLng && this.geolocation) ? haversineDistance(this.geolocation, item.LatLng) : null;
+                if (item.DistanceMiles != null && item.DistanceMiles > 10) {
+                    item.IsClose = false;
+                } else {
+                    item.IsClose = true;
+                }
             });
 
             // then sort the list so closest locations come first

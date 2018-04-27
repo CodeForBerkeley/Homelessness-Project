@@ -580,6 +580,11 @@ var PageController = function () {
                 // tag each result with its distance from my geolocation
                 _this4.search.results.forEach(function (item) {
                     item.DistanceMiles = item.LatLng && _this4.geolocation ? haversineDistance(_this4.geolocation, item.LatLng) : null;
+                    if (item.DistanceMiles != null && item.DistanceMiles > 10) {
+                        item.IsClose = false;
+                    } else {
+                        item.IsClose = true;
+                    }
                 });
 
                 // then sort the list so closest locations come first

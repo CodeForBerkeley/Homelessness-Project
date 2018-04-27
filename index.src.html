@@ -129,7 +129,7 @@
 
             <ul>
                 <li ng-repeat="result in app.search.results">
-                    <div class="distance" ng-show="result.DistanceMiles"><a href="javascript:void(0);" ng-click="app.zoomMapToLatLng(result.LatLng, true); app.resultdetails = result;">{{ result.DistanceMiles.toFixed(1) }} miles from you.<br>SEE MAP</a></div>
+                    <div class="distance" ng-show="result.IsClose"><a href="javascript:void(0);" ng-click="app.zoomMapToLatLng(result.LatLng, true); app.resultdetails = result;">{{ result.DistanceMiles.toFixed(1) }} miles from you.<br>SEE MAP</a></div>
 
                     <div class="times indent" ng-show="result.StartTime && result.EndTime">Open {{ result.StartTime }} to {{ result.EndTime }}</div>
                     <div class="times indent" ng-show="result.StartTime && ! result.EndTime">Starting at {{ result.StartTime }}</div>
