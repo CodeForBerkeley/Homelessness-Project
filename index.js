@@ -158,14 +158,14 @@ var DISALLOWED_SEARCH_TERMS = ['(', ')', '<', '>'];
 // e.g. Health and Mental Health would both match "Health", and there would be no way to fetch only Health records (maybe some postprocessing?)
 // so just don't do it! use distinct-enough values that substrings won't match
 // sorry but that's the degree of Airtable's support for multiple-choice values
-var SERVICES_OFFERED = ["Health Care", "Restroom/Shower", "Bedding/Clothing", "Phone/Computer", "Housing/Shelter", "Legal", "Drop In", "Food", "Mail", "Referrals"];
+var SERVICES_OFFERED = ["Health Care", "Restroom / Shower", "Bedding / Clothing", "Phone / Computer", "Housing / Shelter", "Legal", "Drop In", "Food", "Mail", "Referrals"];
 
 var SERVICES_MAP = {
     "Health Care": ["Dental", "Health Care", "Medical", "Mental Health", "Substance Abuse"],
-    "Restroom/Shower": ["Restroom", "Shower"],
-    "Bedding/Clothing": ["Clothing/Blankets/Sleeping Bag", "Laundry"],
-    "Phone/Computer": ["Phone", "Computer"],
-    "Housing/Shelter": ["Housing", "Shelter"],
+    "Restroom / Shower": ["Restroom", "Shower"],
+    "Bedding / Clothing": ["Clothing/Blankets/Sleeping Bag", "Laundry"],
+    "Phone / Computer": ["Phone", "Computer"],
+    "Housing / Shelter": ["Housing", "Shelter"],
     "Legal": ["Case Management", "Legal"],
     "Drop In": ["Drop In"],
     "Food": ["Food"],
