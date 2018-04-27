@@ -158,7 +158,20 @@ var DISALLOWED_SEARCH_TERMS = ['(', ')', '<', '>'];
 // e.g. Health and Mental Health would both match "Health", and there would be no way to fetch only Health records (maybe some postprocessing?)
 // so just don't do it! use distinct-enough values that substrings won't match
 // sorry but that's the degree of Airtable's support for multiple-choice values
-var SERVICES_OFFERED = ["Case Management", "Child/Young Adult", "Clothing/Blankets/Sleeping Bags", "Computer Access", "Dental", "Drop In", "Food", "Health Care", "Housing", "Laundry", "Legal", "LGBTQ+", "Mail", "Medical", "Mental Health", "Pets", "Phone", "Referrals", "Restroom", "Shelter", "Shower", "Substance Abuse", "Women"];
+var SERVICES_OFFERED = ["Health Care", "Restroom/Shower", "Bedding/Clothing", "Phone/Computer", "Housing/Shelter", "Legal", "Drop In", "Food", "Mail", "Referrals"];
+
+var SERVICES_MAP = {
+    "Health Care": ["Dental", "Health Care", "Medical", "Mental Health", "Substance Abuse"],
+    "Restroom/Shower": ["Restroom", "Shower"],
+    "Bedding/Clothing": ["Clothing/Blankets/Sleeping Bag", "Laundry"],
+    "Phone/Computer": ["Phone", "Computer"],
+    "Housing/Shelter": ["Housing", "Shelter"],
+    "Legal": ["Case Management", "Legal"],
+    "Drop In": ["Drop In"],
+    "Food": ["Food"],
+    "Mail": ["Mail"],
+    "Referrals": ["Referrals"]
+};
 
 // the URL where one may contact to report bugs; we just use a mailto link whichnwork A-OK on mobile
 var CONTACT_URL = "mailto:dorothydayhouse@gmail.com?subject=Feedback on eastbay.homeless-connection.org";
@@ -434,7 +447,10 @@ var PageController = function () {
             var day = 'FIND("' + weekday + '", Day) > 0';
 
             this.search.services.forEach(function (wanted) {
-                formula.push('FIND("' + wanted + '", {Services Offered}) > 0');
+                var mapped = SERVICES_MAP[wanted];
+                mapped.forEach(function (m) {
+                    formula.push('FIND("' + m + '", {Services Offered}) > 0');
+                });
             });
 
             // search for specific word
